@@ -5,6 +5,7 @@ from .models import Video, Playlist
 from .serializers import VideoSerializer, PlaylistSerializer
 # Create your views here.
 # views.py
+
 from django.core.mail import send_mail
 
 from channels.layers import get_channel_layer
