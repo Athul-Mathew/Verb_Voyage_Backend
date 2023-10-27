@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'chat',
     'notifications',
     'videcall',
-    
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 
@@ -223,6 +224,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY':  config('CLOUDINARY_API_KEY'),
+    'API_SECRET':  config('CLOUDINARY_API_SECRET'),
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -230,7 +236,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR /"media"
 # Default primary key field type
