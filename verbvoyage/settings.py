@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 
 from datetime import timedelta
+from decouple import config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,13 +28,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+8bpfeid@-u1+bzs#do#_vo7y#!zao-aa=5en8*v*mkfd5e5lr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
-SITE_ID=1
+SITE_ID=config('SITE_ID')
 
 
 INSTALLED_APPS = [
@@ -71,10 +72,13 @@ MIDDLEWARE = [
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(config("REDIS_SERVER_NAME"))],
+        }, 
     },
 }
-    
+
 REST_FRAMEWORK = {
     
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -85,13 +89,13 @@ REST_FRAMEWORK = {
     )
 }
 
-RAZORPAY_KEY='rzp_test_SGMMMyJu9HzQWZ'
+RAZORPAY_KEY=config('RAZORPAY_KEY')
 
-RAZORPAY_SECRET='i5U5QROwFpssCqe04tmMMSwO'
+RAZORPAY_SECRET=config('RAZORPAY_SECRET')
 
-STRIPE_SECRET_KEY = 'sk_test_51Nt9QbSJs7ydjdPgDm2G9ejfXCK9LL0kYqZQAv6qX6nnCBWtA776xj4jlAGrVpz3TdIouxcKpmpkbvROwaojbL3a00iqpWLtcO'
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51Nt9QbSJs7ydjdPgOqev42MIM91fIT0Xk98ChA8MJNYDe5Bac9rizBbJnQA652Z0CHgKoxm5azxjmaMGlQirnbh1006NLfQWec'
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
 
 
 SIMPLE_JWT = {
@@ -137,7 +141,7 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT",),
 }
 
-BACKEND_BASE_URL = 'http://localhost:8000'
+BACKEND_BASE_URL = config('BACKEND_BASE_URL')
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
@@ -170,10 +174,10 @@ ASGI_APPLICATION = 'verbvoyage.asgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'verbvoyage',
-        'USER': 'postgres',
-        'PASSWORD':'123',
-        'HOST':'Localhost'
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD':config('DB_PASSWORD'),
+        'HOST':config('DB_HOST')
     }
 }
 AUTH_USER_MODEL = 'Accounts.UserAccount'
@@ -185,8 +189,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'verbvoyage2023@gmail.com'
-EMAIL_HOST_PASSWORD ='aridjthvoarnwqwa'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
 # Password validation
