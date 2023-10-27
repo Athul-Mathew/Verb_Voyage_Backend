@@ -5,12 +5,11 @@ from .models import Video, Playlist
 from .serializers import VideoSerializer, PlaylistSerializer
 # Create your views here.
 # views.py
-from notifications.signals import notify 
 from django.core.mail import send_mail
 
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-from notifications.models import Notification
+
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import AnonymousUser
