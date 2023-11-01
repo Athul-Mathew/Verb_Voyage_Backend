@@ -21,7 +21,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 import json
 from decouple import config
 
-BACKEND_BASE_URL = config('BACKEND_BASE_URL')
+BACKEND_BASE_URL ='https://verbvoyage-frontend-srmq.vercel.app'
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
