@@ -21,7 +21,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 import json
 from decouple import config
 
-BaseUrl = config('BaseUrl')
+BACKEND_BASE_URL = config('BACKEND_BASE_URL')
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -93,7 +93,7 @@ def Activate(request,uidb64,token):
         user.save()
         print('saved')
 
-        return HttpResponseRedirect(BaseUrl+'/login')
+        return HttpResponseRedirect(BACKEND_BASE_URL+'/login')
     
     
 def get_user_info(request, user_id):
@@ -191,7 +191,7 @@ def reset_validate(request, uidb64, token):
 
     if user is not None and default_token_generator.check_token(user, token):
 
-        return HttpResponseRedirect(BaseUrl+'/reset-password/')
+        return HttpResponseRedirect(BACKEND_BASE_URL+'/reset-password/')
     
 
 class ResetPassword(APIView):
