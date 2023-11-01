@@ -90,7 +90,7 @@ def Activate(request,uidb64,token):
         user.save()
         print('saved')
 
-        return HttpResponseRedirect('http://localhost:3000/login')
+        return HttpResponseRedirect('https://verbvoyage-frontend-srmq.vercel.app/login')
     
     
 def get_user_info(request, user_id):
@@ -188,7 +188,7 @@ def reset_validate(request, uidb64, token):
 
     if user is not None and default_token_generator.check_token(user, token):
 
-        return HttpResponseRedirect('http://localhost:3000/reset-password/')
+        return HttpResponseRedirect('https://verbvoyage-frontend-srmq.vercel.app/reset-password/')
     
 
 class ResetPassword(APIView):
