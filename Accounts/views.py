@@ -19,9 +19,6 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
 import json
-from decouple import config
-
-BACKEND_BASE_URL ='https://verbvoyage-frontend-srmq.vercel.app'
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -93,7 +90,7 @@ def Activate(request,uidb64,token):
         user.save()
         print('saved')
 
-        return HttpResponseRedirect(BACKEND_BASE_URL+'/login')
+        return HttpResponseRedirect('http://localhost:3000/login')
     
     
 def get_user_info(request, user_id):
@@ -191,7 +188,7 @@ def reset_validate(request, uidb64, token):
 
     if user is not None and default_token_generator.check_token(user, token):
 
-        return HttpResponseRedirect(BACKEND_BASE_URL+'/reset-password/')
+        return HttpResponseRedirect('http://localhost:3000/reset-password/')
     
 
 class ResetPassword(APIView):
