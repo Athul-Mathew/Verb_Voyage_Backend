@@ -8,7 +8,7 @@ class SubscriptionPlan(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     duration = models.IntegerField()
     desc=models.CharField(max_length=100,default='NONE')
-    edit_url = models.URLField(blank=True)  
+    edit_url = models.URLField(blank=True ,null=True)  
 
     def __str__(self):
         return self.name
