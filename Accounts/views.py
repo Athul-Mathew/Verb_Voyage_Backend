@@ -90,7 +90,7 @@ def Activate(request,uidb64,token):
         user.save()
         print('saved')
 
-        return HttpResponseRedirect('https://verbvoyage-frontend-srmq.vercel.app/login')
+        return HttpResponseRedirect('https://verbvoyage-frontend-srmq.vercel.app')
     
     
 def get_user_info(request, user_id):
