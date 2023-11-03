@@ -1,26 +1,20 @@
 # tasks.py
 
 from celery import shared_task
-from datetime import datetime, timedelta
-from Accounts.models import UserAccount
 from django.utils import timezone
-
+from .models import UserAccount
 
 @shared_task
-def check_subscription_expiration():
-    users_to_check = UserAccount.objects.filter(is_premium=True)
+def update_subscription_status():
+    # Get all user accounts with remaining days greater than 0
+    users_with_remaining_days = UserAccount.objects.filter(remaining_subscription_days__gt=0)
 
-    for user in users_to_check:
-        if user.remaining_subscription_days is not None:
-            # Calculate remaining days based on the remaining_subscription_days
-            remaining_days = user.remaining_subscription_days - 1
+    for user in users_with_remaining_days:
+        # Decrement the remaining days by 1
+        user.remaining_subscription_days -= 1
 
-            # If there are no remaining days, set the user's premium status to False
-            if remaining_days <= 0:
-                user.is_premium = False
-                user.remaining_subscription_days = 0  # Reset to 0
-            else:
-                # Update the user's remaining subscription days
-                user.remaining_subscription_days = remaining_days
+        # Check if remaining days have reached 0
+        if user.remaining_subscription_days == 0:
+            user.is_premium = False
 
-            user.save()
+        user.save()

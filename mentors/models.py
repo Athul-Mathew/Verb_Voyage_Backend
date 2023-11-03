@@ -33,6 +33,7 @@ class Video(models.Model):
     title = models.CharField(max_length=255)
     mentor = models.ForeignKey(Mentor, on_delete=models.CASCADE)
     video_file = models.FileField(upload_to='videos/', null=True, blank=True)
+    video_url = models.CharField(max_length=500,blank=True,null=True)
     thumbnail = models.ImageField(upload_to='thumbnails/')
     playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, related_name='videos')
 

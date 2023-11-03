@@ -229,6 +229,41 @@ CLOUDINARY_STORAGE = {
     'API_KEY':  config('CLOUDINARY_API_KEY'),
     'API_SECRET':  config('CLOUDINARY_API_SECRET'),
 }
+from django.utils import timezone
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  
+
+CELERY_BEAT_SCHEDULE = {
+    'update-subscription-status': {
+        'task': 'your_app.tasks.update_subscription_status',
+        'schedule': timezone.timedelta(days=1),  
+    },
+}
+
+
+#firesbase**************************
+# settings.py
+
+# Configure Firebase Storage
+# import firebase_admin
+# from firebase_admin import credentials, storage
+
+# # Initialize Firebase Admin SDK
+# cred = credentials.Certificate('path/to/your/firebase-adminsdk.json')
+# firebase_admin.initialize_app(cred, {
+#     'storageBucket': 'your-firebase-storage-bucket-url',
+# })
+
+# # Set the default storage to Firebase Storage
+# DEFAULT_FILE_STORAGE = 'storages.backends.firebase.FirebaseStorage'
+
+
+
+
+#firesbase**************************
+
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
